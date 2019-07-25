@@ -41,6 +41,10 @@
       return this.hasAnyRowConflicts() || this.hasAnyColConflicts();
     },
 
+    hasAnyRooksConflictsOn: function(rowIndex, colIndex) {
+      return (this.hasRowConflictAt(rowIndex) || this.hasColConflictAt(colIndex));
+    },
+
     hasAnyQueenConflictsOn: function(rowIndex, colIndex) {
       return (
         this.hasRowConflictAt(rowIndex) ||
@@ -89,7 +93,7 @@
           }
         }
       }
-      return false; // fixme
+      return false;
     },
 
     // test if any rows on this board contain conflicts
@@ -101,7 +105,7 @@
         }
       }
 
-      return false; // fixme
+      return false;
     },
 
 
@@ -125,7 +129,7 @@
           }
         }
       }
-      return false; // fixme
+      return false;
     },
 
     // test if any columns on this board contain conflicts
@@ -136,7 +140,7 @@
           return true;
         }
       }
-      return false; // fixme
+      return false;
     },
 
 
@@ -166,7 +170,7 @@
           }
         }
       }
-      return false; // fixme
+      return false;
     },
 
     // test if any major diagonals on this board contain conflicts
@@ -174,12 +178,12 @@
       var maxDiagonal = this.attributes.n - 2;
       var minDiagonal = maxDiagonal * -1;
 
-      for (var i = minDiagonal; i < maxDiagonal; i++) {
+      for (var i = minDiagonal; i <= maxDiagonal; i++) {
         if (this.hasMajorDiagonalConflictAt(i)) {
           return true;
         }
       }
-      return false; // fixme
+      return false;
     },
 
 
@@ -209,7 +213,7 @@
         }
       }
 
-      return false; // fixme
+      return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
@@ -222,7 +226,7 @@
           return true;
         }
       }
-      return false; // fixme
+      return false;
     },
 
     /*--------------------  End of Helper Functions  ---------------------*/
