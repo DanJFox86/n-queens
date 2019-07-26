@@ -120,9 +120,11 @@ window.countNQueensSolutions = function(n) {
   var queenBoard = new Board({'n':n});
   var queenCounter = 0;
   var possiblePos = Math.pow(n, 2);
+  var endPos = 0;
+  var possibleSolutions = [1,1,1,1,2,10,40,92,352,724,2680,14200,73712,365596,2279184,14772512]
   console.log(`finding solutions for n = ${n}`);
   var recurseFunc = function(board, startPos) {
-    for (let i = startPos; i < possiblePos; i++) {
+    for (let i = startPos; i < startPos + n; i++) {
       board.togglePiece(Math.floor(i / n), i % n);
       queenCounter++;
       if (!board.hasAnyQueenConflictsOn(Math.floor(i / n), i % n)) {
@@ -130,6 +132,7 @@ window.countNQueensSolutions = function(n) {
         if (queenCounter === n) {
           // return queenBoard;
           solutionCount++;
+          // console.log(`Solution %: `, solutionCount / possibleSolutions[n-1] * 100, `%`);
         } else {
           recurseFunc(board, (Math.floor(i / n) + 1) * n);
         }
@@ -142,13 +145,16 @@ window.countNQueensSolutions = function(n) {
 
   }
 
-  for (let i = 0; i < n; i++) {
-    queenBoard.togglePiece(0, i);
-    queenCounter++;
-    recurseFunc(queenBoard, (Math.floor(i / n) + 1) * n);
-    queenBoard.togglePiece(0, i);
-    queenCounter--;
+  if (n > 1) {
+    for (let i = 0; i < n; i++) {
+      queenBoard.togglePiece(0, i);
+      queenCounter++;
+      recurseFunc(queenBoard, (Math.floor(i / n) + 1) * n);
+      queenBoard.togglePiece(0, i);
+      queenCounter--;
+    }
   }
+
 
   var end = Date.now() - start;
 
